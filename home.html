@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachers' Day Surprise</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      background: linear-gradient(135deg, #000, #1c1a00);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* Form Page */
+    .form-container {
+      background: #111;
+      color: #ccc;
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .form-container h1 {
+      color: goldenrod;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 2px solid goldenrod;
+      background: #222;
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 15px;
+      background: goldenrod;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #333;
+      color: goldenrod;
+    }
+
+    /* Greeting Page */
+    .greeting {
+      display: none;
+      text-align: center;
+      animation: fadeIn 2s;
+    }
+
+    .greeting h1 {
+      font-size: 3rem;
+      color: gold;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+      animation: pop 1.5s ease forwards;
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 1.3rem;
+      color: #fff;
+      background: rgba(255,215,0,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      animation: fadeInUp 2s ease forwards;
+    }
+
+    /* Invitation Page */
+    .invitation {
+      display: none;
+      background: #111;
+      color: #ccc;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 600px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    .invitation h2 {
+      color: goldenrod;
+      margin-bottom: 15px;
+      font-size: 2rem;
+    }
+
+    .invitation p {
+      margin: 8px 0;
+      font-size: 1.1rem;
+    }
+
+    .turn-btn {
+      margin-top: 25px;
+      padding: 12px 25px;
+      background: goldenrod;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .turn-btn:hover {
+      background: #333;
+      color: goldenrod;
+    }
+
+    /* Animations */
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: gold;
+      top: -10px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container" id="formPage">
+    <h1>Teachers' Day Portal</h1>
+    <p>Enter your Name & Code:</p>
+    <input type="text" id="teacherName" placeholder="Enter your full name"><br>
+    <input type="text" id="teacherCode" placeholder="Enter your code (e.g. ks)"><br>
+    <button onclick="showGreeting()">Enter</button>
+  </div>
+
+  <div class="greeting" id="greetingPage">
+    <h1 id="greetingText">Happy Teachers’ Day!</h1>
+    <div class="note" id="noteText"></div>
+    <button class="turn-btn" onclick="showInvitation()">📖 Turn Page</button>
+  </div>
+
+  <div class="invitation" id="invitationPage">
+    <h2>Teachers’ Day Celebration</h2>
+    <p id="invitationHeading"></p>
+    <p id="invitationText"></p>
+    <p><b>Date:</b> <span id="invitationDate"></span></p>
+    <p><b>Time:</b> <span id="invitationTime"></span></p>
+    <p><b>Venue:</b> <span id="invitationVenue"></span></p>
+    <p id="invitationClosing"></p>
+  </div>
+
+  <script>
+    // Mapping teacher codes to names
+    const teacherMap = {
+      "ks": "Mr. Kostav Sengupta",
+      "rk": "Ms. Rina Kapoor",
+      "am": "Mrs. Anita Mishra"
+      // Add more codes here
+    };
+
+    // Show Greeting
+    function showGreeting() {
+      let name = document.getElementById("teacherName").value;
+      let code = document.getElementById("teacherCode").value.toLowerCase();
+
+      let teacherFullName = teacherMap[code] || name || "Dear Teacher";
+
+      document.getElementById("greetingText").innerText = "🎉 Happy Teachers’ Day 🎉";
+      document.getElementById("noteText").innerHTML = `
+        **Dear ${teacherFullName}**,
+        <br>
+        We want to express our deepest gratitude for all that you do. Thank you for your dedication, patience, and unwavering belief in your students. You are more than just a teacher; you are a mentor, a guide, and an inspiration. The lessons you've taught us extend far beyond the classroom, and we'll carry them with us always. Happy Teachers' Day!
+      `;
+
+      document.getElementById("formPage").style.display = "none";
+      document.getElementById("greetingPage").style.display = "block";
+
+      // Confetti effect
+      for (let i = 0; i < 100; i++) {
+        let confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 5000);
+      }
+    }
+
+    // Show Invitation
+    function showInvitation() {
+      document.getElementById("invitationHeading").innerHTML = "We're delighted to invite you to join us in celebrating Teachers' Day!";
+      document.getElementById("invitationText").innerHTML = "On this special occasion, we want to express our deepest gratitude for your unwavering dedication, guidance, and inspiration. Your commitment to shaping our future is truly appreciated. We look forward to honoring you at a special celebration.";
+      document.getElementById("invitationDate").innerText = "September 5, 2025";
+      document.getElementById("invitationTime").innerText = "11:30 a.m.";
+      document.getElementById("invitationVenue").innerText = "East Point School Seminar Hall";
+      document.getElementById("invitationClosing").innerText = "We hope to see you there!";
+
+      document.getElementById("greetingPage").style.display = "none";
+      document.getElementById("invitationPage").style.display = "block";
+    }
+  </script>
+</body>
+</html>
+
